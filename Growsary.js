@@ -3,7 +3,7 @@ const Services = require('@services');
 const Server = require('@server');
 const { Connection } = require('@database');
 
-class XLoad {
+class Growsary {
   constructor() {
     this.resources = {};
   }
@@ -31,4 +31,4 @@ class XLoad {
   }
 };
 
-module.exports = XLoad;
+module.exports = Growsary;

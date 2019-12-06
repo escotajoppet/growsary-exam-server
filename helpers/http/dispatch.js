@@ -1,10 +1,10 @@
-const status = require('http-status-codes');
-
 const dispatch = (obj) => {
   const defaults = {
     data: {},
     error: null,
     success: true,
+    status: 200,
+    errorFields: undefined,
   };
 
   return {
@@ -13,7 +13,4 @@ const dispatch = (obj) => {
   };
 };
 
-module.exports = {
-  status,
-  dispatch,
-};
+module.exports = dispatch;

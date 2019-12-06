@@ -11,9 +11,12 @@ class UsersService {
   }
 
   async authenticate({ email, password }) {
-    const user = this.User.findOne({
+    const user = await this.User.findOne({
       where: {
         email,
+      },
+      attributes: {
+        include: ['password'],
       },
     });
 
@@ -35,7 +38,11 @@ class UsersService {
       );
     }
 
-    return user;
+    const retUser = user.dataValues;
+
+    delete retUser.password;
+
+    return retUser;
   }
 
   async generateToken(user) {

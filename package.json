@@ -1,12 +1,13 @@
 {
-  "name": "xload",
+  "name": "growsary-server",
   "version": "1.0.0",
-  "description": "XLoad backend",
+  "description": "Growsary Server",
   "main": "index.js",
   "scripts": {
     "pretest": "eslint --ignore-path .gitignore .",
     "prestart": "npm run pretest",
-    "start": "nodemon index.js",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -38,10 +39,10 @@
   },
   "_moduleAliases": {
     "@src": "src",
-    "@helpers": "src/helpers",
+    "@helpers": "helpers",
     "@database": "database",
     "@server": "server",
-    "@services": "src/services",
+    "@services": "services",
     "@models": "database/models",
     "@config": "config"
   },
