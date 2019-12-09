@@ -2,11 +2,20 @@ const {
   status,
   dispatch,
 } = require('@helpers/http');
-
+const { validateRequest } = require('@server/middlewares');
+const { body } = require('express-validator');
 module.exports = (app, resources) => {
-  app.post('/user/register', async(req, res, next) => {
-    const { UsersService } = resources.services;
-
+  const { UsersService } = resources.services;
+  app.post('/user/register', [
+    body('email', 'Invalid email provided')
+      .isEmail(),
+    body('name', 'No name provided')
+      .not()
+      .isEmpty(),
+    body('password', 'No password provided')
+      .not()
+      .isEmpty(),
+  ], validateRequest, async(req, res, next) => {
     try {
       const data = await UsersService.create(req.body);
 

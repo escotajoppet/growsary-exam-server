@@ -2,7 +2,11 @@ const {
   status,
   dispatch,
 } = require('@helpers/http');
-const { authenticateToken } = require('@server/middlewares');
+const {
+  authenticateToken,
+  validateRequest,
+} = require('@server/middlewares');
+const { body } = require('express-validator');
 
 module.exports = (app, resources) => {
   const {
@@ -20,7 +24,24 @@ module.exports = (app, resources) => {
     }
   });
 
-  app.post('/topic', authenticateToken, async(req, res, next) => {
+  app.get('/topic/:id', authenticateToken, async(req, res, next) => {
+    try {
+      const data = await TopicsService.getOne(req.params.id);
+
+      res.send(dispatch({ data }));
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  app.post('/topic', authenticateToken, [
+    body('subject', 'Subject is required')
+      .not()
+      .isEmpty(),
+    body('description', 'Description is required')
+      .not()
+      .isEmpty(),
+  ], validateRequest, async(req, res, next) => {
     try {
       const data = await TopicsService.create(
         req.user.id,

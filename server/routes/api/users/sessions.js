@@ -1,15 +1,26 @@
 const { dispatch } = require('@helpers/http');
+const { validateRequest } = require('@server/middlewares');
+const { body } = require('express-validator');
 
 module.exports = (app, resources) => {
-  app.post('/user/login', async(req, res, next) => {
-    const { UsersService } = resources.services;
+  const { UsersService } = resources.services;
 
+  app.post('/user/login', [
+    body('email', 'Invalid email provided')
+      .isEmail(),
+    body('password', 'No password provided')
+      .not()
+      .isEmpty(),
+  ], validateRequest, async(req, res, next) => {
     try {
       const user = await UsersService.authenticate(req.body);
       const token = await UsersService.generateToken(user);
 
       res.send(dispatch({
-        data: { token },
+        data: {
+          token,
+          user,
+        },
       }));
     } catch (err) {
       next(err);

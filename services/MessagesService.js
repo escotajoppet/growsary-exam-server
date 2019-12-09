@@ -5,8 +5,8 @@ class MessagesService {
     const { models } = resources.growsary;
 
     this.Message = models.Message;
+    this.User = models.User;
   }
-
   async getAll(topicId, query) {
     const page = query.page ? parseInt(query.page, 10) : 1;
     const pageSize = query.pageSize ? parseInt(query.pageSize, 10) : 10;
@@ -18,6 +18,12 @@ class MessagesService {
     const data = await this.Message.findAll(
       paginate({
         where: { topicId },
+        include: [
+          {
+            model: this.User,
+            as: 'owner',
+          },
+        ]
       }, {
         page,
         pageSize,
