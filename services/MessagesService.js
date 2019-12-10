@@ -24,6 +24,9 @@ class MessagesService {
             as: 'owner',
           },
         ],
+        order: [
+          ['createdAt', 'DESC'],
+        ],
       }, {
         page,
         pageSize,

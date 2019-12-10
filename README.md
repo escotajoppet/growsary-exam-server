@@ -49,7 +49,7 @@ $ sequelize db:create
 $ sequelize db:migrate
 ```
 
-## Start Server in Development ENV
+## Start Server
 
 ```
 npm run dev

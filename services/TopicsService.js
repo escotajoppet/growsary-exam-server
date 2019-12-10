@@ -17,7 +17,11 @@ class TopicsService {
     const pageCount = Math.ceil(totalItems / pageSize);
 
     const data = await this.Topic.findAll(
-      paginate({}, {
+      paginate({
+        order: [
+          ['createdAt', 'DESC'],
+        ],
+      }, {
         page,
         pageSize,
       }),
