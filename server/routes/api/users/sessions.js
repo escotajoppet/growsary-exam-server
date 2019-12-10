@@ -15,6 +15,7 @@ module.exports = (app, resources) => {
     try {
       const user = await UsersService.authenticate(req.body);
       const token = await UsersService.generateToken(user);
+      await UsersService.activateUser(user);
 
       res.send(dispatch({
         data: {

@@ -4,6 +4,7 @@ const {
 } = require('@helpers/http');
 const {
   authenticateToken,
+  isUserActive,
   validateRequest,
 } = require('@server/middlewares');
 const { body } = require('express-validator');
@@ -13,8 +14,9 @@ module.exports = (app, resources) => {
     TopicsService,
     MessagesService,
   } = resources.services;
+  const { User } = resources.growsary.models;
 
-  app.get('/topics', authenticateToken, async(req, res, next) => {
+  app.get('/topics', authenticateToken, isUserActive(User), async(req, res, next) => {
     try {
       const data = await TopicsService.getAll(req.query);
 
@@ -24,7 +26,7 @@ module.exports = (app, resources) => {
     }
   });
 
-  app.get('/topic/:id', authenticateToken, async(req, res, next) => {
+  app.get('/topic/:id', authenticateToken, isUserActive(User), async(req, res, next) => {
     try {
       const data = await TopicsService.getOne(req.params.id);
 
@@ -34,7 +36,7 @@ module.exports = (app, resources) => {
     }
   });
 
-  app.post('/topic', authenticateToken, [
+  app.post('/topic', authenticateToken, isUserActive(User), [
     body('subject', 'Subject is required')
       .not()
       .isEmpty(),
@@ -59,7 +61,7 @@ module.exports = (app, resources) => {
     }
   });
 
-  app.patch('/topic/:id', authenticateToken, async(req, res, next) => {
+  app.patch('/topic/:id', authenticateToken, isUserActive(User), async(req, res, next) => {
     try {
       const data = await TopicsService.update(
         req.user.id,
@@ -73,7 +75,7 @@ module.exports = (app, resources) => {
     }
   });
 
-  app.delete('/topic/:id', authenticateToken, async(req, res, next) => {
+  app.delete('/topic/:id', authenticateToken, isUserActive(User), async(req, res, next) => {
     try {
       await TopicsService.delete(
         req.user.id,
@@ -86,7 +88,7 @@ module.exports = (app, resources) => {
     }
   });
 
-  app.get('/topic/:id/messages', authenticateToken, async(req, res, next) => {
+  app.get('/topic/:id/messages', authenticateToken, isUserActive(User), async(req, res, next) => {
     try {
       const data = await MessagesService.getAll(
         req.params.id,
@@ -99,7 +101,7 @@ module.exports = (app, resources) => {
     }
   });
 
-  app.post('/topic/:id/message', authenticateToken, async(req, res, next) => {
+  app.post('/topic/:id/message', authenticateToken, isUserActive(User), async(req, res, next) => {
     try {
       const data = await MessagesService.create(
         req.user.id,

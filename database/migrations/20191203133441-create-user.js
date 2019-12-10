@@ -27,6 +27,9 @@ module.exports = {
           type: Sequelize.DATE,
           defaultValue: Sequelize.fn('CURRENT_TIMESTAMP'),
         },
+        isActive: {
+          type: Sequelize.BOOLEAN,
+        },
       })
       .then(_ => {
         return queryInterface.sequelize.query(`

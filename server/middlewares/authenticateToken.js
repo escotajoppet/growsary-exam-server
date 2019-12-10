@@ -15,10 +15,12 @@ const authenticateToken = (req, _res, next) => {
 
   jwt.verify(authToken, process.env.SECRET_TOKEN, (err, user) => {
     if (err) {
-      throw new GrowsaryError(
-        'authenticateToken::jwt.verify',
-        'Forbidden: Invalid token',
-        status.FORBIDDEN,
+      next(
+        new GrowsaryError(
+          'authenticateToken::jwt.verify',
+          'Forbidden: Invalid token',
+          status.FORBIDDEN,
+        ),
       );
     }
 

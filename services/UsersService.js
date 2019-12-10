@@ -45,8 +45,30 @@ class UsersService {
     return retUser;
   }
 
-  async generateToken(user) {
+  generateToken(user) {
     return jwt.sign(user, process.env.SECRET_TOKEN);
+  }
+
+  async activateUser(user) {
+    const tmpUser = await this.getOne(user.id);
+
+    await this.User.update({
+      isActive: false,
+    }, { where: {} });
+    tmpUser.update({
+      isActive: true,
+    });
+  }
+
+  getOne(id) {
+    return this.User.findOne({
+      where: { id },
+      rejectOnEmpty: new GrowsaryError(
+        'UsersService::getOne',
+        `No users found: ${id}`,
+        status.NOT_FOUND,
+      ),
+    });
   }
 
   async create(data) {
