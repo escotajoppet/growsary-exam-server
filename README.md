@@ -18,6 +18,48 @@ The system is using a standardized API response which has the default values
 - `errorFields` will have the field-specific errors
 - `success` indicates if the request is successful
 
+# Setup (IMPORTANT)
+
+MySQL should be installed in the system.
+
+## Clone the repository
+```
+git clone https://github.com/escotajoppet/growsary-exam-server.git
+
+# Go to directory
+cd growsary-exam-server
+```
+
+## Setup the database
+Edit the `.env` file for your MySQL credentials.
+
+```
+# /.env
+
+DB_NAME=growsarydb
+DB_USER=your_username
+DB_PASSWORD=your_password
+```
+
+## Create and Migrate database
+
+```
+$ npm install
+$ sequelize db:create
+$ sequelize db:migrate
+```
+
+## Start Server in Development ENV
+
+```
+npm run dev
+```
+
+## Unit test
+```
+npm run test
+```
+
 # General Responses
 
 `401: Unauthorized`

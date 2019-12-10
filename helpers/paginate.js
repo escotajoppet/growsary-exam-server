@@ -7,6 +7,6 @@ const paginate = (query, { page, pageSize }) => {
     offset,
     limit,
   };
-}
+};
 
 module.exports = paginate;

@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     subject: DataTypes.STRING,
     description: DataTypes.TEXT,
     deletedBy: {
+      onDelete: 'CASCADE',
       type: DataTypes.UUID,
       reference: {
         model: 'Users',
@@ -18,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     deletedAt: DataTypes.DATE,
     createdBy: {
+      onDelete: 'CASCADE',
       type: DataTypes.UUID,
       references: {
         model: 'Users',
@@ -25,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     updatedBy: {
+      onDelete: 'CASCADE',
       type: DataTypes.UUID,
       references: {
         model: 'Users',

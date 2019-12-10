@@ -23,7 +23,7 @@ class MessagesService {
             model: this.User,
             as: 'owner',
           },
-        ]
+        ],
       }, {
         page,
         pageSize,

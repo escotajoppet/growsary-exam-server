@@ -32,4 +32,7 @@ module.exports = {
 
     return models;
   },
+  Topic: require('./topic.js'),
+  Message: require('./message.js'),
+  User: require('./user.js'),
 };

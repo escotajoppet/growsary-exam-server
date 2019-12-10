@@ -9,7 +9,7 @@ const app = express();
 
 const load = (resources) => {
   // parse application/x-www-form-urlencoded
-  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.urlencoded({ extended: true }));
   // parse application/json
   app.use(bodyParser.json());
 
@@ -35,6 +35,8 @@ const load = (resources) => {
   app.listen(PORT, _ => {
     console.log(`\nGrowsary server running on port ${PORT}...`);
   });
+
+  return app;
 };
 
 const addRoute = (context, route, resources) => {

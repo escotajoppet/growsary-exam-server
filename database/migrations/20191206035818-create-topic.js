@@ -9,6 +9,7 @@ module.exports = {
         defaultValue: Sequelize.UUIDV1,
       },
       createdBy: {
+        onDelete: 'CASCADE',
         allowNull: false,
         type: Sequelize.UUID,
         references: {
@@ -17,6 +18,7 @@ module.exports = {
         },
       },
       updatedBy: {
+        onDelete: 'CASCADE',
         allowNull: false,
         type: Sequelize.UUID,
         references: {
@@ -32,6 +34,7 @@ module.exports = {
         type: Sequelize.TEXT,
       },
       deletedBy: {
+        onDelete: 'CASCADE',
         type: Sequelize.UUID,
         references: {
           model: 'Users',

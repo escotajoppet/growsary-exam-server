@@ -11,7 +11,15 @@ class Growsary {
   load() {
     this._loadData();
     this._loadServices();
-    this._loadServer();
+
+    if (process.env.ENV === 'test') {
+      const app = this._loadServer();
+      this.resources.server = app;
+
+      return this.resources;
+    } else {
+      this._loadServer();
+    }
   }
 
   // private methods
@@ -27,7 +35,7 @@ class Growsary {
   }
 
   _loadServer() {
-    Server.load(this.resources);
+    return Server.load(this.resources);
   }
 };
 
